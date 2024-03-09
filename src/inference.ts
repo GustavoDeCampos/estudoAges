@@ -10,5 +10,5 @@ valor = 10.0; //float
 console.log(valor);
 console.log(nome);
 let nome2; // é possivel declarar uma variavel e atribuir um valor depois, porem ela sera do tipo any, ou seja, aceita qualquer tipo de valor;
-nome2 = "gustavo"; //aqui estou atribuindo um valor do tipo string a variavel nome2;
+nome2 = "gustavo"; //aqui estou atribuindo um valor do tipo string a variavel nome2, no enteanto nao é recomendado fazer isso, pois o typescript é altamente tipado, fazer isso perderia o sentido;
 console.log(nome2);
