@@ -1,0 +1,11 @@
+"use strict";
+let numeros = [20, 30, 40];
+let numbers;
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+numbers.push(11);
+numbers.unshift(0);
+numbers.pop();
+numbers.shift();
+let numbers_ro = numbers;
+numbers_ro = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log(numbers);
