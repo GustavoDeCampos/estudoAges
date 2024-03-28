@@ -9,3 +9,5 @@ class Teste{
 let c1 = new Teste('Canal 1', 'Curso 1');
 console.log(c1.canal);
 console.log(c1.curso);
+
+//teste
