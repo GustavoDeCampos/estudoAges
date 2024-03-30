@@ -1,4 +1,4 @@
-class computador{ //classe computador
+class Computador{ //classe computador
     private nome: string;
     private ram: number;
     private cpuSpeed: number;
@@ -33,9 +33,9 @@ class computador{ //classe computador
 }
 
 //instanciação da classe computador, criando um objeto 
-const computador1 = new computador('dell', 64, 10); 
-const computador2 = new computador('hp', 32, 5); 
-const computador3 = new computador('acer', 128, 15);
+const computador1 = new Computador('dell', 64, 10); 
+const computador2 = new Computador('hp', 32, 5); 
+const computador3 = new Computador('acer', 128, 15);
 
 //ligando os computadores
 computador1.ligar();

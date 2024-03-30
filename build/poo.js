@@ -1,5 +1,5 @@
 "use strict";
-class computador {
+class Computador {
     nome;
     ram;
     cpuSpeed;
@@ -26,9 +26,9 @@ class computador {
         console.log('---------------------------------------------------');
     }
 }
-const computador1 = new computador('dell', 64, 10);
-const computador2 = new computador('hp', 32, 5);
-const computador3 = new computador('acer', 128, 15);
+const computador1 = new Computador('dell', 64, 10);
+const computador2 = new Computador('hp', 32, 5);
+const computador3 = new Computador('acer', 128, 15);
 computador1.ligar();
 computador2.ligar();
 computador3.ligar();

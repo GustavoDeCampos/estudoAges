@@ -1,5 +1,10 @@
-class Conta { //classe conta, que será herdada pelas classes ContaPf e ContaPj
-    private numeroConta: number;
+interface tributo{
+    baseCalculo: number;
+    CalculaTributo(taxa: number): number;
+}
+
+abstract class Conta { //classe abstrata conta
+    private readonly numeroConta: number; //atributo numero da conta, que não pode ser mudado, pois é readonly
     private titular: string;
     private saldo: number;
 
@@ -35,29 +40,34 @@ class Conta { //classe conta, que será herdada pelas classes ContaPf e ContaPj
         }
     }
 
-    public getSaldo(): number{ //função para retornar o saldo da conta
+    get Saldo(): number{ //função para retornar o saldo da conta
         return this.saldo;
     }
 
-    public getNumeroConta(): number{ //função para retornar o numero da conta
+    get NumeroConta(): number{ //função para retornar o numero da conta
         return this.numeroConta;
     }
 
-    public getTitular(): string{ //função para retornar o titular da conta
+    get Titular(): string{ //função para retornar o titular da conta
         return this.titular;
     }
 
-    public setTitular(titular: string): void{ //função para mudar o titular da conta
+    set Titular(titular: string){ //função para mudar o titular da conta
+        if(titular === ''){
+            console.log('nome invalido');
+            return;
+        }
         this.titular = titular;
     }
 
-    info(): string{ //função para mostrar as informações da conta
+    get info(): string{ //função para mostrar as informações da conta
         return `titular: ${this.titular}, numero da conta: ${this.numeroConta}, saldo: ${this.saldo}`;
     }
 }
 
 
-class ContaPf extends Conta { //herdando a classe conta, tudo que for implementado na classe conta, será herdado pela classe ContaPf
+class ContaPf extends Conta implements tributo{ //herdando a classe conta, tudo que for implementado na classe conta, será herdado pela classe ContaPf
+    baseCalculo = 10;
     private cpf: string;
 
     constructor(titular: string, cpf: string){ //construtor da classe ContaPf
@@ -66,16 +76,16 @@ class ContaPf extends Conta { //herdando a classe conta, tudo que for implementa
         
     }
 
-    public getCpf(): string{ //função para retornar o cpf
+    get Cpf(): string{ //função para retornar o cpf
         return this.cpf;
     }
 
-    public setCpf(cpf: string): void{ //função para mudar o cpf
+    set Cpf(cpf: string){ //função para mudar o cpf
         this.cpf = cpf;
     }
 
-    override info(): string{ //função para mostrar as informações da conta
-        return `tipo da conta: PF, ${super.info()}, cpf: ${this.cpf}`;
+    override get info(): string{ //função para mostrar as informações da conta
+        return `tipo da conta: PF, ${super.info}, cpf: ${this.cpf}`;
     }
 
     deposito(valor: number): void { //função para depositar dinheiro na conta
@@ -94,6 +104,9 @@ class ContaPf extends Conta { //herdando a classe conta, tudo que for implementa
         }
     }
 
+    CalculaTributo(taxa: number): number{ //função para calcular o tributo
+        return this.baseCalculo * taxa;
+    }
 }
 
 
@@ -105,16 +118,16 @@ class ContaPj extends Conta { //herdando a classe conta, tudo que for implementa
         this.cnpj = cnpj;
     }
 
-    public getCnpj(): string{ //função para retornar o cnpj
+    get Cnpj(): string{ //função para retornar o cnpj
         return this.cnpj;
     }
 
-    public setCnpj(cnpj: string): void{ //função para mudar o cnpj
+    set Cnpj(cnpj: string){ //função para mudar o cnpj
         this.cnpj = cnpj;
     }
 
-    override info(): string{ //função para mostrar as informações da conta
-        return `tipo da conta: PJ, ${super.info()}, cnpj: ${this.cnpj}`;
+    override get info(): string{ //função para mostrar as informações da conta
+        return `tipo da conta: PJ, ${super.info}, cnpj: ${this.cnpj}`;
     }
 
     deposito(valor: number): void { //função para depositar dinheiro na conta
@@ -137,12 +150,12 @@ class ContaPj extends Conta { //herdando a classe conta, tudo que for implementa
 const conta1 = new ContaPf('', ''); //instanciando a classe ContaPf
 const conta2 = new ContaPj('', ''); //instanciando a classe ContaPj
 
-conta1.setTitular('joao'); //mudando o titular da conta
-conta1.setCpf('123.456.789-00'); //mudando o cpf da conta
+conta1.Titular = 'joao'; //mudando o titular da conta
+conta1.Cpf = '123.456.789-00'; //mudando o cpf da conta
 
 
-conta2.setTitular('empresa'); //mudando o titular da conta
-conta2.setCnpj('12.345.678/0001-00'); //mudando o cnpj da conta
+conta2.Titular = 'empresa'; //mudando o titular da conta
+conta2.Cnpj = '12.345.678/0001-00'; //mudando o cnpj da conta
 
 
 console.log("---------------------------------------------------");
@@ -153,7 +166,7 @@ conta1.saque(100); //sacando dinheiro da conta
 conta1.saque(2000); //testando saque acima do permitido
 conta1.saque(30000); //testando saque acima do permitido
 conta1.saque(0); //testando saque com valor negativo
-console.log(conta1.info()); //mostrando as informações da conta
+console.log(conta1.info); //mostrando as informações da conta
 console.log("---------------------------------------------------");
 conta2.deposito(100000); //depositando dinheiro na conta
 conta2.deposito(300000); //testando deposito acima do permitido
@@ -162,5 +175,5 @@ conta2.saque(100); //sacando dinheiro da conta
 conta2.saque(150000); //testando saque acima do permitido
 conta2.saque(2000000); //testando saque acima do permitido
 conta2.saque(-10000); //testando saque com valor negativo
-console.log(conta2.info()); //mostrando as informações da conta
+console.log(conta2.info); //mostrando as informações da conta
 console.log("---------------------------------------------------");

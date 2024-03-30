@@ -30,36 +30,41 @@ class Conta {
             console.log('saldo insuficiente');
         }
     }
-    getSaldo() {
+    get Saldo() {
         return this.saldo;
     }
-    getNumeroConta() {
+    get NumeroConta() {
         return this.numeroConta;
     }
-    getTitular() {
+    get Titular() {
         return this.titular;
     }
-    setTitular(titular) {
+    set Titular(titular) {
+        if (titular === '') {
+            console.log('nome invalido');
+            return;
+        }
         this.titular = titular;
     }
-    info() {
+    get info() {
         return `titular: ${this.titular}, numero da conta: ${this.numeroConta}, saldo: ${this.saldo}`;
     }
 }
 class ContaPf extends Conta {
+    baseCalculo = 10;
     cpf;
     constructor(titular, cpf) {
         super(titular);
         this.cpf = cpf;
     }
-    getCpf() {
+    get Cpf() {
         return this.cpf;
     }
-    setCpf(cpf) {
+    set Cpf(cpf) {
         this.cpf = cpf;
     }
-    info() {
-        return `tipo da conta: PF, ${super.info()}, cpf: ${this.cpf}`;
+    get info() {
+        return `tipo da conta: PF, ${super.info}, cpf: ${this.cpf}`;
     }
     deposito(valor) {
         if (valor > 5000) {
@@ -77,6 +82,9 @@ class ContaPf extends Conta {
             super.saque(valor);
         }
     }
+    CalculaTributo(taxa) {
+        return this.baseCalculo * taxa;
+    }
 }
 class ContaPj extends Conta {
     cnpj;
@@ -84,14 +92,14 @@ class ContaPj extends Conta {
         super(titular);
         this.cnpj = cnpj;
     }
-    getCnpj() {
+    get Cnpj() {
         return this.cnpj;
     }
-    setCnpj(cnpj) {
+    set Cnpj(cnpj) {
         this.cnpj = cnpj;
     }
-    info() {
-        return `tipo da conta: PJ, ${super.info()}, cnpj: ${this.cnpj}`;
+    get info() {
+        return `tipo da conta: PJ, ${super.info}, cnpj: ${this.cnpj}`;
     }
     deposito(valor) {
         if (valor > 250000) {
@@ -112,10 +120,10 @@ class ContaPj extends Conta {
 }
 const conta1 = new ContaPf('', '');
 const conta2 = new ContaPj('', '');
-conta1.setTitular('joao');
-conta1.setCpf('123.456.789-00');
-conta2.setTitular('empresa');
-conta2.setCnpj('12.345.678/0001-00');
+conta1.Titular = 'joao';
+conta1.Cpf = '123.456.789-00';
+conta2.Titular = 'empresa';
+conta2.Cnpj = '12.345.678/0001-00';
 console.log("---------------------------------------------------");
 conta1.deposito(1000);
 conta1.deposito(6000);
@@ -124,7 +132,7 @@ conta1.saque(100);
 conta1.saque(2000);
 conta1.saque(30000);
 conta1.saque(0);
-console.log(conta1.info());
+console.log(conta1.info);
 console.log("---------------------------------------------------");
 conta2.deposito(100000);
 conta2.deposito(300000);
@@ -133,5 +141,5 @@ conta2.saque(100);
 conta2.saque(150000);
 conta2.saque(2000000);
 conta2.saque(-10000);
-console.log(conta2.info());
+console.log(conta2.info);
 console.log("---------------------------------------------------");
